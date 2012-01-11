@@ -1,5 +1,6 @@
 require 'active_support/core_ext/object/duplicable'
 require 'active_support/core_ext/array/extract_options'
+require 'active_support/deprecation'
 
 # It is recommended to use <tt>class_attribute</tt> over methods defined in this file. Please
 # refer to documentation for <tt>class_attribute</tt> for more information. Officially it is not
@@ -32,7 +33,6 @@ require 'active_support/core_ext/array/extract_options'
 #   Person.new.hair_colors             # => NoMethodError
 class Class # :nodoc:
   def class_inheritable_reader(*syms)
-    ActiveSupport::Deprecation.warn ClassInheritableAttributes::DEPRECATION_WARNING_MESSAGE
     options = syms.extract_options!
     syms.each do |sym|
       next if sym.is_a?(Hash)
@@ -51,7 +51,6 @@ class Class # :nodoc:
   end
 
   def class_inheritable_writer(*syms)
-    ActiveSupport::Deprecation.warn ClassInheritableAttributes::DEPRECATION_WARNING_MESSAGE
     options = syms.extract_options!
     syms.each do |sym|
       class_eval(<<-EOS, __FILE__, __LINE__ + 1)
@@ -69,7 +68,6 @@ class Class # :nodoc:
   end
 
   def class_inheritable_array_writer(*syms)
-    ActiveSupport::Deprecation.warn ClassInheritableAttributes::DEPRECATION_WARNING_MESSAGE
     options = syms.extract_options!
     syms.each do |sym|
       class_eval(<<-EOS, __FILE__, __LINE__ + 1)
@@ -87,7 +85,6 @@ class Class # :nodoc:
   end
 
   def class_inheritable_hash_writer(*syms)
-    ActiveSupport::Deprecation.warn ClassInheritableAttributes::DEPRECATION_WARNING_MESSAGE
     options = syms.extract_options!
     syms.each do |sym|
       class_eval(<<-EOS, __FILE__, __LINE__ + 1)
@@ -145,7 +142,6 @@ class Class # :nodoc:
   end
 
   def reset_inheritable_attributes
-    ActiveSupport::Deprecation.warn ClassInheritableAttributes::DEPRECATION_WARNING_MESSAGE
     @inheritable_attributes = EMPTY_INHERITABLE_ATTRIBUTES
   end
 
